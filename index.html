@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive NexaAdmin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <i class="fa-solid fa-gears"></i>
+            <span>NEXA ADMIN</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active" data-page="dashboard"><a href="#"><i class="fa-solid fa-gauge"></i>Dashboard</a></li>
+            <li data-page="users"><a href="#"><i class="fa-solid fa-user-gear"></i>User Control</a></li>
+            <li data-page="products"><a href="#"><i class="fa-solid fa-layer-group"></i>Inventory</a></li>
+            <li data-page="orders"><a href="#"><i class="fa-solid fa-cart-shopping"></i>Orders Status</a></li>
+            <li data-page="settings"><a href="#"><i class="fa-solid fa-sliders"></i>System System</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search system, users, transactions...">
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="action-icon-btn" title="System Alerts">
+                    <i class="fa-regular fa-bell"></i>
+                    <span class="badge"></span>
+                </button>
+                <div class="admin-profile">
+                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80" alt="Admin Face">
+                    <div class="profile-info">
+                        <span class="name">Aryan Chaudhary</span>
+                        <span class="role">Super Admin</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="view-dashboard" class="admin-view active">
+            <div class="view-header">
+                <h2>Operational Insights</h2>
+            </div>
+            
+            <section class="stat-cards">
+                <div class="card">
+                    <div class="card-title">Server Efficiency</div>
+                    <div class="card-meta"><span class="value" id="cpu-val">94.2%</span> <i class="fa-solid fa-microchip icon"></i></div>
+                    <div class="card-indicator positive"><i class="fa-solid fa-circle-check"></i> System healthy</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Active Sessions</div>
+                    <div class="card-meta"><span class="value" id="session-val">1,482</span> <i class="fa-solid fa-bolt icon"></i></div>
+                    <div class="card-indicator positive"><i class="fa-solid fa-arrow-trend-up"></i> +18.4% live variance</div>
+                </div>
+                <div class="card">
+                    <div class="card-title">API Requests (hr)</div>
+                    <div class="card-meta"><span class="value">42.8K</span> <i class="fa-solid fa-network-wired icon"></i></div>
+                    <div class="card-indicator warning"><i class="fa-solid fa-triangle-exclamation"></i> Moderate load</div>
+                </div>
+            </section>
+
+            <section class="dashboard-grid">
+                <div class="panel-box chart-box">
+                    <h3>Traffic Flow Matrix</h3>
+                    <div class="canvas-holder">
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                </div>
+                <div class="panel-box alert-box">
+                    <h3>Live System Logs</h3>
+                    <ul class="log-stream" id="logStream">
+                        <li class="log-item info"><span>11:51:02</span> Core Engine Initialization: Successful.</li>
+                        <li class="log-item warning"><span>11:52:15</span> Latency spike observed on DB-Cluster-02.</li>
+                        <li class="log-item success"><span>11:53:40</span> SSL Certificates automatically updated.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <div id="view-users" class="admin-view">
+            <div class="view-header">
+                <h2>User Management Matrix</h2>
+                <button class="btn btn-primary" onclick="alert('Add User interface triggered!')"><i class="fa-solid fa-user-plus"></i> Provision New User</button>
+            </div>
+            <div class="panel-box">
+                <table class="admin-table">
+                    <thead>
+                        <tr><th>UID</th><th>Identity</th><th>Security Role</th><th>Network Status</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>#USR-9021</td><td>Marcus Vance (marcus@nexa.io)</td><td>System Engineer</td><td><span class="status active">Online</span></td><td><button class="btn btn-sm" onclick="alert('Modifying UID #USR-9021')">Modify</button></td></tr>
+                        <tr><td>#USR-4412</td><td>Elena Rostova (elena@nexa.io)</td><td>Data Analyst</td><td><span class="status active">Online</span></td><td><button class="btn btn-sm" onclick="alert('Modifying UID #USR-4412')">Modify</button></td></tr>
+                        <tr><td>#USR-1084</td><td>Devon Lane (devon@nexa.io)</td><td>Support Specialist</td><td><span class="status idle">Idle</span></td><td><button class="btn btn-sm" onclick="alert('Modifying UID #USR-1084')">Modify</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="view-products" class="admin-view">
+            <div class="view-header">
+                <h2>Global System Deployments</h2>
+            </div>
+            <div class="panel-box">
+                <table class="admin-table">
+                    <thead>
+                        <tr><th>Module ID</th><th>Deployment Name</th><th>Cluster Location</th><th>Node Allocation</th><th>Health</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>#MD-V1</td><td>Authentication Gateway</td><td>AWS-us-east-1</td><td>24 Active Nodes</td><td><span class="status active">Optimal</span></td></tr>
+                        <tr><td>#MD-V2</td><td>Payment Ledger Engine</td><td>GCP-europe-west3</td><td>12 Active Nodes</td><td><span class="status active">Optimal</span></td></tr>
+                        <tr><td>#MD-V3</td><td>BigData Compute Engine</td><td>AWS-ap-south-1</td><td>64 Dynamic Nodes</td><td><span class="status critical">Saturated</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="view-orders" class="admin-view">
+            <div class="view-header">
+                <h2>Transactional Node Ledger</h2>
+            </div>
+            <div class="panel-box">
+                <table class="admin-table">
+                    <thead>
+                        <tr><th>Transaction Hash</th><th>Client Entity</th><th>Value</th><th>Method</th><th>Execution</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>0x8f2c...4a1</td><td>Quantum Lab Inc.</td><td>Rs8,450.00</td><td>Corporate ACH</td><td><span class="status active">Settled</span></td></tr>
+                        <tr><td>0x3d9a...11f</td><td>Hyperion Corp</td><td>Rs14,200.00</td><td>Crypto Wire</td><td><span class="status active">Settled</span></td></tr>
+                        <tr><td>0x7e1b...99a</td><td>Vortex Media</td><td>Rs2,110.00</td><td>Credit Pool</td><td><span class="status idle">Verifying</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="view-settings" class="admin-view">
+            <div class="view-header">
+                <h2>Global System Configurations</h2>
+            </div>
+            <div class="panel-box" style="max-width: 650px;">
+                <div class="settings-group">
+                    <h3>Security Protocols</h3>
+                    <div class="setting-row">
+                        <span>Enforce Universal 2FA Architecture</span>
+                        <input type="checkbox" checked class="toggle-switch">
+                    </div>
+                    <div class="setting-row">
+                        <span>Automated Rolling DB Snapshots (Hourly)</span>
+                        <input type="checkbox" checked class="toggle-switch">
+                    </div>
+                    <div class="setting-row">
+                        <span>Verbose Terminal Stream Simulation</span>
+                        <input type="checkbox" id="terminalToggle" checked class="toggle-switch">
+                    </div>
+                </div>
+                <button class="btn btn-primary" style="margin-top: 20px;" onclick="alert('Configurations backed up and committed to system variables.')">Commit Configurations</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
